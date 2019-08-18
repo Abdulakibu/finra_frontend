@@ -1,0 +1,38 @@
+<div class='card'>
+  <div class='card-header'>
+    {{pageTitle}}
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+      <div class='col-md-2'>Enter Phone Number:</div>
+      <div class='col-md-4'>
+        <input type='text'
+               #phoneNumbers />
+        <p *ngIf='invalidPhone'> Invalid Number</p>
+      </div>
+      <p class='col-md-3'>Total count of Numbers: {{phoneNumberAmount}}</p>
+      <button class='btn btn-primary'
+              (click)='submitPhone(phoneNumbers.value)'>
+        Submit
+      </button>
+    </div>
+    <div class='table-responsive'>
+      <table class='table'
+             *ngIf='phoneArray && phoneArray.length'>
+        <thead>
+          <tr>
+            <th>
+              Phone Numbers
+            </th>
+          </tr>
+        </thead>
+        <div *ngFor="let numbers of pageOfItems">{{numbers.number | phone}}</div>
+        <jw-pagination [items]="phoneArray" (changePage)="onChangePage($event)" [pageSize]="20"></jw-pagination>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf='errorMessage'
+     class='alert alert-danger'>
+  Error: {{ errorMessage }}
+</div>
